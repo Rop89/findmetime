@@ -26,7 +26,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         prompt: 'consent',
         scope: SCOPES,
       });
-
+      console.log('Google Redirect URI:', process.env.GOOGLE_REDIRECT_URI);
+      console.log('Auth Url:', authUrl);
       // Redirect the user to Google's OAuth page
       res.redirect(authUrl);
     } else {
