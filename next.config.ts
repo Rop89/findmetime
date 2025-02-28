@@ -10,12 +10,11 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // Apply to API routes (e.g., /api/*)
-        source: '/api/:path*', // This pattern applies to all API routes
+        source: '/api/googleauth/callback', 
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: '*', // You can change '*' to your specific domain if needed (e.g., 'https://yourdomain.com')
+            value: '*', // Or specify your domain, e.g., 'https://yourdomain.com'
           },
           {
             key: 'Access-Control-Allow-Methods',
@@ -23,8 +22,8 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Access-Control-Allow-Headers',
-            value: 'Content-Type, Authorization',
-          },
+            value: 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control',
+        },
         ],
       },
     ];

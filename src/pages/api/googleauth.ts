@@ -21,7 +21,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         prompt: 'consent',
         scope: SCOPES,
       });
-      console.log('Generated Google OAuth URL:', authUrl);  // Log for debugging
 
       // Redirect the user to Google's OAuth page
       res.redirect(authUrl);
