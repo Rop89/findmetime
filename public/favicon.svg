@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200">
+  <!-- Outer location pin -->
+  <path d="M50 10c-15.46 0-28 12.54-28 28 0 17.67 20.65 37.82 26.42 43.2a4 4 0 0 0 5.16 0C57.35 75.82 78 55.67 78 38c0-15.46-12.54-28-28-28z" fill="rgb(17 24 39 / var(--tw-bg-opacity, 1))"/>
+
+  <!-- Inner clock circle -->
+  <circle cx="50" cy="38" r="16" fill="rgb(250 204 21 / var(--tw-bg-opacity, 1))"/>
+
+  <!-- Clock hands -->
+  <line x1="50" y1="38" x2="50" y2="30" stroke="rgb(17 24 39 / var(--tw-bg-opacity, 1))" stroke-width="3" stroke-linecap="round"/>
+  <line x1="50" y1="38" x2="58" y2="38" stroke="rgb(17 24 39 / var(--tw-bg-opacity, 1))" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Small location pin base -->
+  <circle cx="50" cy="38" r="4" fill="rgb(17 24 39 / var(--tw-bg-opacity, 1))"/>
+</svg>

@@ -1,0 +1,45 @@
+/* loadingspinner.module.css */
+
+.spinnerContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.2); /* Slightly transparent white */
+    border-top: 4px solid #ffeb3b; /* Yellow spinner */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Fun and engaging loading text */
+  .loadingText {
+    margin-top: 20px;
+    color: #ffeb3b; /* Yellow text */
+    font-size: 1.2rem;
+    font-weight: bold;
+    animation: fadeInOut 2s infinite;
+  }
+  
+  /* Animation for text to make it more engaging */
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
