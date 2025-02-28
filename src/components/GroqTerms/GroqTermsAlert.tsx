@@ -41,7 +41,7 @@ const GroqTermsAlert: React.FC<GroqTermsModalProps> = ({ onAccept, onDecline }) 
           </li>
           <li>
             <span className="font-semibold">Data Usage:</span> Only the necessary
-            information, such as your preferences, is shared securely with Groq.
+            information, such as your google events and tasks, is shared securely with Groq.
           </li>
           <li>
             <span className="font-semibold">Privacy and Security:</span> All shared
