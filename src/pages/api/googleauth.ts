@@ -10,6 +10,9 @@ const oauth2Client = new google.auth.OAuth2(
 const SCOPES = [
   'https://www.googleapis.com/auth/calendar.readonly',
   'https://www.googleapis.com/auth/tasks.readonly',
+  'https://www.googleapis.com/auth/userinfo.email',
+  'https://www.googleapis.com/auth/userinfo.profile',
+
 ];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

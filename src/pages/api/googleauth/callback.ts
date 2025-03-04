@@ -10,7 +10,7 @@ const oauth2Client = new google.auth.OAuth2(
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { code } = req.query;
-
+  console.log('Received authorization code:', code);
   if (!code) {
     return res.status(400).json({ error: 'Code is missing from the query' });
   }
