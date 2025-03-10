@@ -34,9 +34,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Redirect to the homepage or wherever you want to display the calendar
     res.redirect('/');  // Redirects to home after successful authentication
-  } catch (error) {
-    console.error('Failed to exchange code for token:', error);
-    res.status(500).json({ error: 'Failed to authenticate with Google' });
+  }  catch (error: any) {
+    console.error('OAuth Error:', error.response?.data || error.message);
+    res.status(500).json({ error: error.response?.data || 'Failed to authenticate with Google' });
   }
 }
 
