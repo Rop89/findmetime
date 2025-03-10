@@ -7,10 +7,11 @@ const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_SECRET,
   process.env.GOOGLE_REDIRECT_URI
 );
+console.log('Using redirect URI:', process.env.GOOGLE_REDIRECT_URI);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { code } = req.query;
-  console.log('Received authorization code:', code);
+  console.log('Received authorization code:', code, req,res);
   if (!code) {
     return res.status(400).json({ error: 'Code is missing from the query' });
   }
@@ -19,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Exchange the code for tokens
     const { tokens } = await oauth2Client.getToken(code as string);
     oauth2Client.setCredentials(tokens);
-
+    
     // Set the access token in an HttpOnly cookie
     res.setHeader(
       'Set-Cookie',
