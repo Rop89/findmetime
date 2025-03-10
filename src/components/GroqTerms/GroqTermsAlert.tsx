@@ -56,6 +56,16 @@ const GroqTermsAlert: React.FC<GroqTermsModalProps> = ({ onAccept, onDecline }) 
           Review additional details here:
         </p>
         <ul className="list-disc pl-5 mt-2 space-y-2">
+        <li>
+            <a
+              href="http://findmetime.netlify.app/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-teal-500 underline hover:text-teal-600 focus:outline focus:ring-2 focus:ring-teal-500"
+            >
+              Our Privacy Policy
+            </a>
+          </li>
           <li>
             <a
               href="https://groq.com/terms-of-use/"
