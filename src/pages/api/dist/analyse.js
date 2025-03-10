@@ -51,7 +51,8 @@ var analyzeWithGroq = function (eventSummary) { return __awaiter(void 0, void 0,
                     console.log("Event with title \"" + eventSummary + "\" has already been analyzed. Skipping prompt request.");
                     return [2 /*return*/, []]; // Return empty array as no new prompt is needed
                 }
-                prompt = "Analyse the following event summary: \"" + eventSummary + "\". Based on the event details, suggest practical time optimization strategies to improve efficiency. Focus on identifying time-saving opportunities (e.g., batching similar tasks, reducing unnecessary steps), rearranging tasks for better scheduling and productivity, recommending automation tools or delegation methods where applicable, and suggesting ways to streamline workflow and minimize context-switching. If the event summary is vague, assume a typical scenario and provide useful, actionable insights. Return the response as well-structured HTML using elements like `<ul>`, `<li>`, and `<p>` for easy display on a webpage."
+                prompt = `Analyze the event summary: "${eventSummary}". Provide actionable time optimization strategies for the event, such as task batching, eliminating unnecessary steps, improving scheduling, and minimizing context-switching. Offer suggestions on streamlining workflows, utilizing automation tools, and delegation methods based on the typical tasks for this kind of event. Return the response in structured HTML with <ul>, <li>, and <p> for easy webpage display.`;
+
 
                 return [4 /*yield*/, groq.chat.completions.create({
                         model: 'gemma2-9b-it',
