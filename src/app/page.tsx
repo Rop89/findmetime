@@ -9,6 +9,7 @@ import SuggestionsView from '@/components/SuggestionsView/SuggestionsView';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import RateLimitError from '@/components/RateLimitError/RateLimitError';
 import GroqTermsAlert from '@/components/GroqTerms/GroqTermsAlert';
+import Footer from '@/components/Footer/Footer';
 interface Event {
   id: string;
   summary: string;
@@ -231,7 +232,8 @@ export default function Home() {
     ? { [selectedItemId]: storedSuggestions?.suggestions[selectedItemId] }
     : { default: 'No suggestions available' };
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
+    <div className="flex-grow">
       {authToken && !loading && (
         <div className="flex bg-gray-900 text-white flex-col" style={{ marginLeft: '100px', width: '80%' }}>
           {showSuggestions && <SuggestionsView suggestions={filteredSuggestions} />}
@@ -310,6 +312,8 @@ export default function Home() {
        }}
         />
       )}
+    </div>
+    {!authToken && <Footer/>}
     </div>
   );
 }

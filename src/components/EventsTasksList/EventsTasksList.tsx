@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Footer from '../Footer/Footer';
 interface CombinedItem {
   id: string;
   type: 'event' | 'task';
@@ -40,6 +40,7 @@ const EventsTasksList: React.FC<EventsTasksListProps> = ({ combinedItems, onItem
           ))}
         </ul>
       </div>
+      <Footer/>
     </aside>
     </div>
   );
