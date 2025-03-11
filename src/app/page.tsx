@@ -10,6 +10,7 @@ import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import RateLimitError from '@/components/RateLimitError/RateLimitError';
 import GroqTermsAlert from '@/components/GroqTerms/GroqTermsAlert';
 import Footer from '@/components/Footer/Footer';
+import CookieConsent from '@/components/Cookies/CookieConsent';
 interface Event {
   id: string;
   summary: string;
@@ -48,7 +49,11 @@ export default function Home() {
   const [selectedItemId, setSelectedItemId] = useState< string | null>(null);
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState<boolean>(true); 
+  const [cookiesRejected, setCookiesRejected] = useState(false);
 
+  const handleCookiesRejectedAction = () => {
+    setCookiesRejected(true); // State change when cookies are rejected
+  };
   const fetchItems = async () => {
     if (!authToken) {
       setError('No valid Google token found.');
@@ -253,7 +258,7 @@ export default function Home() {
             </h1>
             <p className='mb-6 text-lg font-medium text-center'>AI Time Finder</p>
             <div>
-            {!termsAccepted ? (
+            {!termsAccepted || cookiesRejected  ? (
               <button
                 className="bg-teal-500 text-white rounded-full shadow-lg hover:bg-teal-600 transition duration-200 p-4 cursor-not-allowed"
                 disabled
@@ -313,7 +318,12 @@ export default function Home() {
         />
       )}
     </div>
-    {!authToken && <Footer/>}
+    {!authToken && 
+      <div>
+        {!cookiesRejected && <CookieConsent setCookiesRejectedAction={handleCookiesRejectedAction} /> } 
+        <Footer/>
+      </div>
+    }
     </div>
   );
 }
