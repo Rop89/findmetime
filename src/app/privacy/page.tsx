@@ -215,7 +215,7 @@ export default function PrivacyPolicy() {
               If you have any questions about this Privacy Policy, please contact us:
             </p>
             <ul className="list-disc pl-5 text-gray-700 text-lg">
-              <li>By email: ritaa.pinho@gmail.com</li>
+              <li>By email: help.findmetime@gmail.com</li>
             </ul>
           </section>
         </div>

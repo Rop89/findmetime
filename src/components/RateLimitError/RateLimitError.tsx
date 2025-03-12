@@ -13,7 +13,7 @@ const RateLimitError: React.FC<RateLimitErrorProps> = ({ error }) => {
       {error === `We're experiencing high demand. Please try again later or:` && (
         <div className="text-white p-4 rounded-lg mb-6 shadow-lg text-center" style={{ marginLeft: '350px', width: '80%' }}>
         <a 
-          href={`mailto:contact@findmetime.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`} 
+          href={`mailto:help.findmetime@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`} 
           className="inline-block p-6 bg-teal-500 text-white font-semibold rounded-full shadow-lg hover:bg-teal-600 transition duration-200"
         >
           Click to Contact Find Me Time to get more tokens
