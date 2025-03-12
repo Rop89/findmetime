@@ -262,7 +262,7 @@ export default function Home() {
             </h1>
             <p className='mb-6 text-lg font-medium text-center'>AI Time Finder</p>
             <div>
-            {!termsAccepted || cookiesRejected || !cookiesNotAccepted ? (
+            {!termsAccepted || cookiesRejected ? (
               <div>
               <button
                 className="bg-teal-500 text-white rounded-full shadow-lg hover:bg-teal-600 transition duration-200 p-4 cursor-not-allowed"
@@ -270,7 +270,7 @@ export default function Home() {
               >
                 Connect Google
               </button>
-              {!cookiesNotAccepted && (
+              {cookiesRejected && (
                 <p className="text-red-500 text-sm mt-2">
                   ⚠️ Please accept cookies to connect Google.
                 </p>
