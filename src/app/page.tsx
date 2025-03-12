@@ -48,12 +48,15 @@ export default function Home() {
   const [storedSuggestions, setStoredSuggestions] = useState<any>({});
   const [selectedItemId, setSelectedItemId] = useState< string | null>(null);
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
-  const [isTermsModalOpen, setIsTermsModalOpen] = useState<boolean>(true); 
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState<boolean>(false); 
   const [cookiesRejected, setCookiesRejected] = useState(false);
-
+  const [cookiesNotAccepted, setCookiesNotAccepted] = useState(false);
   const handleCookiesRejectedAction = () => {
     setCookiesRejected(true); // State change when cookies are rejected
   };
+  const handleCookiesNotAcceptedAction = () => {
+    setCookiesNotAccepted(true); 
+  }
   const fetchItems = async () => {
     if (!authToken) {
       setError('No valid Google token found.');
@@ -198,10 +201,7 @@ export default function Home() {
         console.error('Error parsing stored suggestions:', error);
       }
     }
-    console.log(storedSuggestions,suggestions)
   }, []);
-  
-
   useEffect(() => {
     const token = Cookies.get('access_token');
     setAuthToken(token || null);
@@ -214,7 +214,11 @@ export default function Home() {
   useEffect(() => {
     analyzeEventsAndTasks();
   }, [combinedItems]);
-
+  useEffect(() => {
+    if (!termsAccepted) {
+      setIsTermsModalOpen(true);
+    }
+  }, [termsAccepted]); 
   useEffect(() => {
     // If suggestions are already stored in sessionStorage, load them
     const storedSuggestionsData = sessionStorage.getItem('suggestions');
@@ -239,11 +243,11 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
     <div className="flex-grow">
-      {authToken && !loading && (
+      {!loading && authToken && (
         <div className="flex bg-gray-900 text-white flex-col" style={{ marginLeft: '100px', width: '80%' }}>
           {showSuggestions && <SuggestionsView suggestions={filteredSuggestions} />}
           {combinedItems && <EventsTasksList combinedItems={combinedItems} onItemClick={handleItemClick} />}
-          <ErrorComponent error={error} />
+          {error && <ErrorComponent error={error} />}
           {error === `We're experiencing high demand. Please try again later or:` && (
             <RateLimitError error={error} />
           )}
@@ -258,13 +262,20 @@ export default function Home() {
             </h1>
             <p className='mb-6 text-lg font-medium text-center'>AI Time Finder</p>
             <div>
-            {!termsAccepted || cookiesRejected  ? (
+            {!termsAccepted || cookiesRejected || !cookiesNotAccepted ? (
+              <div>
               <button
                 className="bg-teal-500 text-white rounded-full shadow-lg hover:bg-teal-600 transition duration-200 p-4 cursor-not-allowed"
                 disabled
               >
                 Connect Google
               </button>
+              {!cookiesNotAccepted && (
+                <p className="text-red-500 text-sm mt-2">
+                  ⚠️ Please accept cookies to connect Google.
+                </p>
+              )}
+              </div>
             ) : (
               <button
                 className="bg-teal-500 text-white rounded-full shadow-lg hover:bg-teal-600 transition duration-200 p-4"
@@ -275,7 +286,9 @@ export default function Home() {
             )}
           </div>
             {!termsAccepted && (
-              <p onClick={() => setIsTermsModalOpen(true)} className="text-red-500 text-m mt-4">
+              <p onClick={() => { 
+                setIsTermsModalOpen(true); 
+              }} className="text-red-500 text-m mt-4">
                 To continue, please agree to the <u>terms</u>.
               </p>
             )}
@@ -293,34 +306,27 @@ export default function Home() {
               </p>
             )}
           </div>
-          {!error && !events && !suggestions && <GroqTermsAlert
-            onAccept={() => {
-              setTermsAccepted(true);
-            }}
-            onDecline={() => {
-              setTermsAccepted(false);
-            }}
-          />
-          }
         </div>
       )}
       {loading && <LoadingSpinner />}
-      {isTermsModalOpen && events.length === 0 && (
-       <GroqTermsAlert
-       onAccept={() => {
-         setTermsAccepted(true);
-         setIsTermsModalOpen(false);
-       }}
-       onDecline={() => {
-         setTermsAccepted(false);
-         setIsTermsModalOpen(false);
-       }}
-        />
-      )}
+      {isTermsModalOpen && !authToken && (
+          <GroqTermsAlert
+            onAccept={() => {
+              setTermsAccepted(true);  // Accept terms and close modal
+              setIsTermsModalOpen(false);  // Close the modal
+            }}
+            onDecline={() => {
+              setTermsAccepted(false);  // Reject terms and close modal
+              setIsTermsModalOpen(false);  // Close the modal
+            }}
+          />
+        )}
     </div>
-    {!authToken && 
+    {!authToken && !cookiesNotAccepted &&
       <div>
-        {!cookiesRejected && <CookieConsent setCookiesRejectedAction={handleCookiesRejectedAction} /> } 
+        <CookieConsent 
+        setCookiesRejectedAction={handleCookiesRejectedAction} 
+        setCookiesNotAcceptedAction={handleCookiesNotAcceptedAction}/> 
         <Footer/>
       </div>
     }

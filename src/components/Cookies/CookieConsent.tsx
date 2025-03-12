@@ -2,7 +2,13 @@
 
 import { useState, useEffect } from "react";
 
-export default function CookieConsent({ setCookiesRejectedAction }: { setCookiesRejectedAction: () => void }) {
+export default function CookieConsent({ 
+  setCookiesRejectedAction, 
+  setCookiesNotAcceptedAction, 
+}: { 
+  setCookiesRejectedAction: () => void;
+  setCookiesNotAcceptedAction: () => void;
+}) {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
@@ -14,6 +20,7 @@ export default function CookieConsent({ setCookiesRejectedAction }: { setCookies
 
   const handleConsent = (consent: string) => {
     localStorage.setItem("cookieConsent", consent);
+    setCookiesNotAcceptedAction();
     if (consent === "rejected") {
       setCookiesRejectedAction();
     }

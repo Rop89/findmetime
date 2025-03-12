@@ -101,6 +101,8 @@ const analyzeEvents = async (events: Event[]): Promise<string[]> => {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  previousEventTitles.clear(); // Reset on each request
+
   const events: Event[] = req.body.tasks; // Get events from the request body
 
   if (!events || events.length === 0) {
@@ -112,20 +114,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     res.status(200).json({ suggestions: optimizationSuggestions });
   } catch (error: unknown) {
-      // Check if the error is an instance of the Error object
-      if (error instanceof Error) {
-        console.error('Error during event analysis:', error.message);
-    
-        // Check if the error message matches the rate-limited error from Groq
-        if (error.message === 'You have run out of tokens') {
-          return res.status(429).json({ error: `We're experiencing high demand. Please try again later or:` });
-        }
-    
-        res.status(500).json({ error: 'Error during event analysis.' });
-      } else {
-        // If the error isn't an instance of Error, handle it safely
-        console.error('Unexpected error:', error);
-        res.status(500).json({ error: 'An unexpected error occurred.' });
+    if (error instanceof Error) {
+      console.error('Error during event analysis:', error.message);
+
+      if (error.message === 'You have run out of tokens') {
+        return res.status(429).json({ error: `We're experiencing high demand. Please try again later or:` });
       }
+
+      res.status(500).json({ error: 'Error during event analysis.' });
+    } else {
+      console.error('Unexpected error:', error);
+      res.status(500).json({ error: 'An unexpected error occurred.' });
     }
+  }
 }
+
