@@ -28,6 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         access_type: 'offline', 
         prompt: 'consent',
         scope: SCOPES,
+        include_granted_scopes:false,
       });
       console.log('Google Redirect URI:', process.env.GOOGLE_REDIRECT_URI);
       console.log('Auth Url:', authUrl);
