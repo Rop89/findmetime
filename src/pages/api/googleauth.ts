@@ -10,9 +10,6 @@ const oauth2Client = new google.auth.OAuth2(
 const SCOPES = [
   'https://www.googleapis.com/auth/calendar.readonly',
   'https://www.googleapis.com/auth/tasks.readonly',
-  'https://www.googleapis.com/auth/userinfo.email',
-  'https://www.googleapis.com/auth/userinfo.profile',
-
 ];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -30,8 +27,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         scope: SCOPES,
         include_granted_scopes:false,
       });
-      console.log('Google Redirect URI:', process.env.GOOGLE_REDIRECT_URI);
-      console.log('Auth Url:', authUrl);
       // Redirect the user to Google's OAuth page
       res.redirect(authUrl);
     } else {
