@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       'Set-Cookie',
       cookie.serialize('access_token', tokens.access_token as string, {
         httpOnly: false,
-        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+        secure: true,
         maxAge: 3600, // 1 hour
         path: '/',
         sameSite: 'strict', 
