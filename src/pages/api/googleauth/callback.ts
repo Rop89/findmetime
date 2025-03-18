@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         secure: true,
         maxAge: 3600, // 1 hour
         path: '/',
-        sameSite: 'strict', 
+        sameSite: 'lax', 
       })
     );
 
