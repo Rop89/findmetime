@@ -37,7 +37,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.redirect('/');  // Redirects to home after successful authentication
   }  catch (error: any) {
     console.error('OAuth Error:', error.response?.data || error.message);
-    res.status(500).json({ error: error.response?.data || 'Failed to authenticate with Google' });
+  
+    if (error.response?.data?.error === 'invalid_grant') {
+      console.log('Authorization code expired or already used. Redirecting to login.');
+      res.redirect('/api/auth'); // Restart OAuth flow
+    } else {
+      res.status(500).json({ error: 'Failed to authenticate with Google' });
+    }
   }
 }
 
