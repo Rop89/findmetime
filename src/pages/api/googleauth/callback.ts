@@ -40,7 +40,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   
     if (error.response?.data?.error === 'invalid_grant') {
       console.log('Authorization code expired or already used. Redirecting to login.');
-      res.redirect('/api/auth'); // Restart OAuth flow
     } else {
       res.status(500).json({ error: 'Failed to authenticate with Google' });
     }
