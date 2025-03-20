@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: '*', // Or specify your domain, e.g., 'https://yourdomain.com'
+            value: 'https://findmetime.netlify.app/' // Or specify your domain, e.g., 'https://yourdomain.com'
           },
           {
             key: 'Access-Control-Allow-Methods',

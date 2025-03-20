@@ -25,11 +25,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.setHeader(
       'Set-Cookie',
       cookie.serialize('access_token', tokens.access_token as string, {
-        httpOnly: true,
+        httpOnly: false,
         secure: true,
         maxAge: 3600, // 1 hour
         path: '/',
-        sameSite: 'lax', 
+        sameSite: 'strict', 
       })
     );
 
